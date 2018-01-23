@@ -5,6 +5,9 @@ var fs = require('fs');
 console.log('Welcome to the GitHub Avatar Downloader!');
 
 function getRepoContributors(repoOwner, repoName, callback) {
+	if (repoOwner == null || repoName == null){
+		callback("repoOwner and repoName are required");
+	} else {
   var options = {
   	url: "https://api.github.com/repos/" + repoOwner + "/" + repoName + "/contributors",
   	headers: {
@@ -21,8 +24,9 @@ function getRepoContributors(repoOwner, repoName, callback) {
     	var filePath = "avatars/" + user.login + ".jpg";
 		downloadImageByURL(user.avatar_url, filePath);
     })
-    callback(null, null);
+    callback(null, "True");
   });
+}
 }
 
 function downloadImageByURL(url, filePath) {
